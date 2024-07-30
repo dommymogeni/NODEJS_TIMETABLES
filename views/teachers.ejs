@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit Teachers</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="mt-5">SUBJECT TEACHERS</h1>
+      <form id="teachersForm" action="/save-teachers" method="POST" novalidate>
+        <div class="form-group">
+          <label for="mathTeacher">Mathematics</label>
+          <input
+            type="text"
+            id="mathTeacher"
+            name="mathTeacher"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">
+            Please provide a teacher's name for Math.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="scienceTeacher">Sciences</label>
+          <input
+            type="text"
+            id="scienceTeacher"
+            name="scienceTeacher"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">
+            Please provide a teacher's name for Science.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="historyTeacher">History</label>
+          <input
+            type="text"
+            id="historyTeacher"
+            name="historyTeacher"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">
+            Please provide a teacher's name for History.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="englishTeacher">English</label>
+          <input
+            type="text"
+            id="englishTeacher"
+            name="englishTeacher"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">
+            Please provide a teacher's name for English.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="peTeacher">kiswahili</label>
+          <input
+            type="text"
+            id="kiswahili"
+            name="kiswahili"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">
+            Please provide a teacher's name for PE.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="artTeacher">Arts</label>
+          <input
+            type="text"
+            id="artTeacher"
+            name="artTeacher"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">
+            Please provide a teacher's name for Art.
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Teachers</button>
+      </form>
+      <a href="/" class="btn btn-secondary mt-3">Home</a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      // Client-side validation
+      (function () {
+        "use strict";
+        window.addEventListener(
+          "load",
+          function () {
+            var form = document.getElementById("teachersForm");
+            form.addEventListener(
+              "submit",
+              function (event) {
+                if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+                form.classList.add("was-validated");
+              },
+              false
+            );
+          },
+          false
+        );
+      })();
+    </script>
+  </body>
+</html>
