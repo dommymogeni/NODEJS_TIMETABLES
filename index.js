@@ -9,7 +9,7 @@ const path = require("node:path");
 const index = require("./routes/index");
 
 // Middleware to parse form data
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.set("view engine", "ejs");

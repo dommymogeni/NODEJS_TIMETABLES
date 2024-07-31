@@ -8,15 +8,45 @@
     />
   </head>
   <body>
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">School time table</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/timetable"
+                >timetable</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/teachers">Teachers</a>
+            </li>
+           
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     <div class="container">
       <h1 class="mt-5">SUBJECT TEACHERS</h1>
       <form id="teachersForm" action="/save-teachers" method="POST" novalidate>
         <div class="form-group">
-          <label for="mathTeacher">Mathematics</label>
+          <label for="Language">Language</label>
           <input
             type="text"
-            id="mathTeacher"
-            name="mathTeacher"
+            id="language"
+            name="language"
             class="form-control"
             required
           />
@@ -24,12 +54,13 @@
             Please provide a teacher's name for Math.
           </div>
         </div>
+
         <div class="form-group">
           <label for="scienceTeacher">Sciences</label>
           <input
             type="text"
-            id="scienceTeacher"
-            name="scienceTeacher"
+            id="science"
+            name="science"
             class="form-control"
             required
           />
@@ -37,12 +68,13 @@
             Please provide a teacher's name for Science.
           </div>
         </div>
+
         <div class="form-group">
-          <label for="historyTeacher">History</label>
+          <label for="Arts">Arts</label>
           <input
             type="text"
-            id="historyTeacher"
-            name="historyTeacher"
+            id="arts"
+            name="arts"
             class="form-control"
             required
           />
@@ -51,11 +83,11 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="englishTeacher">English</label>
+          <label for="englishTeacher">sports</label>
           <input
             type="text"
-            id="englishTeacher"
-            name="englishTeacher"
+            id="sports"
+            name="sports"
             class="form-control"
             required
           />
@@ -63,32 +95,7 @@
             Please provide a teacher's name for English.
           </div>
         </div>
-        <div class="form-group">
-          <label for="peTeacher">kiswahili</label>
-          <input
-            type="text"
-            id="kiswahili"
-            name="kiswahili"
-            class="form-control"
-            required
-          />
-          <div class="invalid-feedback">
-            Please provide a teacher's name for PE.
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="artTeacher">Arts</label>
-          <input
-            type="text"
-            id="artTeacher"
-            name="artTeacher"
-            class="form-control"
-            required
-          />
-          <div class="invalid-feedback">
-            Please provide a teacher's name for Art.
-          </div>
-        </div>
+
         <button type="submit" class="btn btn-primary">Save Teachers</button>
       </form>
       <a href="/" class="btn btn-secondary mt-3">Home</a>

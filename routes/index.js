@@ -5,9 +5,9 @@ const path = require("node:path");
 
 // Path to save the JSON file
 const dataPath = path.join(__dirname, "../data/teachers.json");
-const timetablePath = path.join(__dirname, "../data/timetable.json");
-const timetable = timetablePath;
-const teachers = dataPath;
+
+const timetablePath = path.join(__dirname, "../data/teachers.json");
+
 // Ensure the data directory exists
 if (!fs.existsSync(path.join(__dirname, "../data"))) {
   fs.mkdirSync(path.join(__dirname, "../data"));
@@ -119,11 +119,12 @@ function getTeacherForSubject(subject) {
 
 //function for passing the timetable created to be saved in a csv formart
 function saveTimetable(timetable) {
-  fs.writeFile(timetablePath, JSON.stringify(timetable, null, 2), (err) => {
-    if (err) {
-      return res.status(500).send("An error occurred while saving the data.");
-    }
-  });
+  
+ fs.writeFile(timetablePath, JSON.stringify(users, null, 2), (err) => {
+      if (err) {
+        return res.status(500).send("An error occurred while saving the data.");
+      }
+      res.redirect("/");
 }
 
 function initialTimetable() {

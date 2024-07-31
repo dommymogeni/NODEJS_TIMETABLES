@@ -1,44 +1,14 @@
-{
-  "8:00-9:00": {
-    "Monday": "Languages",
-    "Tuesday": "Languages",
-    "Wednesday": "Languages",
-    "Thursday": "Languages",
-    "Friday": "Languages"
+[
+  {
+    "language": "dominic",
+    "science": "mogeni",
+    "arts": "osugo",
+    "sports": "amin"
   },
-  "9:00-10:00": {
-    "Monday": "Languages",
-    "Tuesday": "Languages",
-    "Wednesday": "Languages",
-    "Thursday": "Languages",
-    "Friday": "Languages"
-  },
-  "10:00-11:00": {
-    "Monday": "Sciences",
-    "Tuesday": "Sciences",
-    "Wednesday": "Sciences",
-    "Thursday": "Sciences",
-    "Friday": "Sciences"
-  },
-  "11:00-12:00": {
-    "Monday": "Sciences",
-    "Tuesday": "Sciences",
-    "Wednesday": "Sciences",
-    "Thursday": "Sciences",
-    "Friday": "Sciences"
-  },
-  "13:00-14:00": {
-    "Monday": "Arts",
-    "Tuesday": "Arts",
-    "Wednesday": "Arts",
-    "Thursday": "Arts",
-    "Friday": "Arts"
-  },
-  "14:00-15:00": {
-    "Monday": "Sports",
-    "Tuesday": "Sports",
-    "Wednesday": "Sports",
-    "Thursday": "Sports",
-    "Friday": "Sports"
+  {
+    "language": "dominic",
+    "science": "mogeni",
+    "arts": "osugo",
+    "sports": "amin"
   }
-}
+]
