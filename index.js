@@ -2,14 +2,14 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const bodyParser = require("body-parser");
-const fs = require("fs");
+const fs = require("node:fs");
 
 //providing utilities for working with file and directory paths
 const path = require("node:path");
 const index = require("./routes/index");
 
 // Middleware to parse form data
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.set("view engine", "ejs");

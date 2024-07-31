@@ -1,40 +1,77 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>School Timetable</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-  </head>
-  <body>
-    <div class="container">
-      <h1 class="mt-5">School Timetable</h1>
-      <table class="table table-bordered mt-3">
-        <thead class="thead-dark">
-          <tr>
-            <th>Day</th>
-            <th>Time</th>
-            <th>Subject</th>
-            <th>Teacher</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% for (let day in timetable) { %> <% timetable[day].forEach(slot => {
-          %>
-          <tr>
-            <td><%= day.charAt(0).toUpperCase() + day.slice(1) %></td>
-            <td><%= slot.time %></td>
-            <td><%= slot.subject %></td>
-            <td><%= slot.teacher %></td>
-          </tr>
-          <% }); %> <% } %>
-        </tbody>
-      </table>
-      <a href="/" class="btn btn-secondary mt-3">Home</a>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">School Timetable</h1>
+        <form action="/saveTimetable" method="POST">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% const times = ['8:00-9:00', '9:00-10:00', '10:00-11:00', '11:00-12:00', '13:00-14:00', '14:00-15:00']; %>
+                    <% times.forEach((time, rowIndex) => { %>
+                        <tr>
+                            <td><%= time %></td>
+                            <% ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].forEach(day => { %>
+                                <td>
+                                    <select name="timetable[<%= time %>][<%= day %>]" class="form-control">
+                                        <option value="">Select Subject</option>
+                                        <% subjects.forEach(subject => { %>
+                                            <option value="<%= subject %>"
+                                                <%= timetable[time] && timetable[time][day] === subject ? 'selected' : '' %>>
+                                                <%= subject %>
+                                            </option>
+                                        <% }) %>
+                                    </select>
+                                </td>
+                            <% }) %>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary mt-3">Save Timetable</button>
+        </form>
+
+        <h2 class="text-center mt-5">Saved Timetable</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% times.forEach((time, rowIndex) => { %>
+                    <tr>
+                        <td><%= time %></td>
+                        <% ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].forEach(day => { %>
+                            <td>
+                                <%= timetable[time] ? timetable[time][day] : '' %>
+                            </td>
+                        <% }) %>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  </body>
+</body>
 </html>
