@@ -7,25 +7,12 @@ const path = require("node:path");
 const dataPath = path.join(__dirname, "../data/teachers.json");
 
 const timetablePath = path.join(__dirname, "../data/timetable.json");
-const timetable = timetablePath;
+const timetables = timetablePath;
 
 // Ensure the data directory exists
-if (!fs.existsSync(path.join(__dirname, "../data"))) {
-  fs.mkdirSync(path.join(__dirname, "../data"));
+if (!fs.existsSync(path.join(__dirname, "data"))) {
+  fs.mkdirSync(path.join(__dirname, "data"));
 }
-
-router.get("/", (req, res) => {
-  res.render("index", {
-    subjects: ["Languages", "Sciences", "Arts", "Sports"],
-    teachers: {
-      Languages: ["Teacher A", "Teacher B"],
-      Sciences: ["Teacher C", "Teacher D"],
-      Arts: ["Teacher E"],
-      Sports: ["Teacher F"],
-    },
-    timetable: loadTimetable(),
-  });
-});
 
 router.get("/teachers", (req, res) => {
   res.render("teachers");
@@ -59,24 +46,30 @@ router.post("/save-teachers", (req, res) => {
   });
 });
 
-//saving the timetable created
-router.post("/saveTimetable", (req, res) => {
-  const timetable = res.body.timetable;
-  if (timetable) {
-    saveTimetable(timetable);
-    res.redirect("/timetable");
-  } else {
-    res.redirect("/");
+// Load timetable
+function loadTimetable() {
+  if (fs.existsSync(path.join(__dirname, "timetable.json"))) {
+    return JSON.parse(
+      fs.readFileSync(path.join(__dirname, "timetable.json"), "utf8")
+    );
   }
-});
+  return generateInitialTimetable();
+}
 
-router.get("/timetable", (req, res) => {
-  res.render("timetable", { timetable, teachers });
-});
+// Save timetable
+function saveTimetable(timetable) {
+  fs.writeFileSync("timetable.json", JSON.stringify(timetable, null, 2));
+}
 
-function validTimetable(timetable) {
-  // initialize the hours of all the subjects to be 0 hrs
-  const subjectHours = { Languages: 0, Sciences: 0, Arts: 0, Sports: 0 };
+// Validate timetable
+function isValidTimetable(timetable) {
+  const subjectHours = {
+    Languages: 0,
+    Sciences: 0,
+    Arts: 0,
+    Sports: 0,
+  };
+
   const teacherBookings = {};
 
   for (const time in timetable) {
@@ -85,30 +78,28 @@ function validTimetable(timetable) {
       if (subject) {
         subjectHours[subject] += 1;
 
-        // Check teacher double-booking
         const teacher = getTeacherForSubject(subject);
         if (!teacherBookings[teacher]) {
           teacherBookings[teacher] = [];
         }
         if (teacherBookings[teacher].includes(time)) {
-          return false; // Teacher double-booked
+          return false;
         }
         teacherBookings[teacher].push(time);
       }
     }
   }
 
-  // returning the hours that are to be done by the subjects individually
   return (
-    subjectHours.Languages === 10 &&
-    subjectHours.Sciences === 10 &&
-    subjectHours.Arts === 5 &&
-    subjectHours.Sports === 5
+    subjectHours["Languages"] === 10 &&
+    subjectHours["Sciences"] === 10 &&
+    subjectHours["Arts"] === 5 &&
+    subjectHours["Sports"] === 5
   );
 }
 
+// Map subjects to teachers
 function getTeacherForSubject(subject) {
-  // Assuming a mapping of subject to teacher
   const teacherMap = {
     Languages: "Teacher A",
     Sciences: "Teacher C",
@@ -118,17 +109,8 @@ function getTeacherForSubject(subject) {
   return teacherMap[subject];
 }
 
-//function for passing the timetable created to be saved in a csv formart
-function saveTimetable(timetable) {
-  fs.writeFile(timetablePath, JSON.stringify(users, null, 2), (err) => {
-    if (err) {
-      return res.status(500).send("An error occurred while saving the data.");
-    }
-    res.redirect("/");
-  });
-}
-
-function initialTimetable() {
+// Generate initial timetable
+function generateInitialTimetable() {
   const timetable = {};
   const times = [
     "8:00-9:00",
@@ -143,18 +125,36 @@ function initialTimetable() {
   times.forEach((time) => {
     timetable[time] = {};
     days.forEach((day) => {
-      timetable[time][day] = ""; // Empty initially
+      timetable[time][day] = "";
     });
   });
 
   return timetable;
 }
 
-function loadTimetable() {
-  if (fs.existsSync("timetable.json")) {
-    return JSON.parse(fs.readFileSync("timetable.json"));
+// GET route to render the timetable page
+router.get("/", (req, res) => {
+  res.render("index", {
+    subjects: ["Languages", "Sciences", "Arts", "Sports"],
+    teachers: {
+      Languages: ["Teacher A", "Teacher B"],
+      Sciences: ["Teacher C", "Teacher D"],
+      Arts: ["Teacher E"],
+      Sports: ["Teacher F"],
+    },
+    timetable: loadTimetable(),
+  });
+});
+
+// POST route to save the timetable
+router.post("/saveTimetable", (req, res) => {
+  const timetable = req.body.timetable;
+  if (timetable) {
+    saveTimetable(timetable);
+    res.redirect("/");
+  } else {
+    res.status(400).send("no timetable. Constraints violated.");
   }
-  return initialTimetable();
-}
+});
 
 module.exports = router;
